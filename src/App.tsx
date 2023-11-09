@@ -8,12 +8,20 @@ const App: React.FC = (): JSX.Element => {
   let [image, setImage] = useState('./models/image1.jpg');
 
   useEffect(() => {
-    setImage(`./models/image${count}.jpg`);
+    // setImage(`./models/image${count}.jpg`);
+    fetchImage(count);
   }, [count]);
 
   const updateCount = (val: number): void => {
     setCount(val);
   };
+
+    const fetchImage = async (val: number) => {
+    let res = await fetch(`./models/image${val}.jpg`);
+    let res1 = await res.blob();
+    let image = URL.createObjectURL(res1);
+    setImage(image);
+};
 
   return (
     <div className="container">
@@ -24,10 +32,3 @@ const App: React.FC = (): JSX.Element => {
 };
 
 export default App;
-
-//   const fetchImage = async (val: number) => {
-//     let res = await fetch(`./models/image${val}.jpg`);
-//     let res1 = await res.blob();
-//     let image = URL.createObjectURL(res1);
-//     setImage(image);
-// };
