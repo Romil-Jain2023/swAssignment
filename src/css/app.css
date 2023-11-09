@@ -1,0 +1,17 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    width: 60vw;
+}
+
+.image {
+    width: 100%;
+    height: 60%;
+}
