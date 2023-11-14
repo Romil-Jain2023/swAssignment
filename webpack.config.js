@@ -2,8 +2,6 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = ({ mode } = { mode: "development" }) => {
-    console.log(`mode is: ${mode}`);
-
     return {
         mode,
         entry: "./src/index.tsx",

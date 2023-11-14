@@ -1,33 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import ButtonToggle from './component/ButtonToggle';
 import Image from './component/Image';
-import './css/app.css';
+import { fetchImage } from './utility/FetchFunc';
+import { changeCount } from './utility/ButtonHelper';
+import './styles/app.css';
 
 const App: React.FC = (): JSX.Element => {
   let [count, setCount] = useState<number>(1);
-  let [image, setImage] = useState('./models/image1.jpg');
+  let [image, setImage] = useState<string>('');
 
   useEffect(() => {
-    setImage(`./models/image${count}.jpg`);
+    loadImages();
   }, [count]);
 
-  const updateCount = (val: number): void => {
-    setCount(val);
+  const loadImages = async () => {
+    let image = await fetchImage(count);
+    setImage(image);
+  }
+
+  const updateCount = (val: string):void => {
+    let res = changeCount(val, count);
+    setCount(res);
   };
 
   return (
     <div className="container">
       <Image image={image} />
-      <ButtonToggle count={count} updateCount={updateCount} />
+      <ButtonToggle updateCount={updateCount} />
     </div>
   )
 };
 
 export default App;
-
-
-// const fetchImage = async (val: number) => {
-// let res = await fetch(`./models/image${val}.jpg`);
-// let res1 = await res.blob();
-// let image = URL.createObjectURL(res1);
-// setImage(image);
